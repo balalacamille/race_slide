@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Slide Race</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- TOP BAR: the game title and the points score (app.js updates the number) -->
+<header class="top">
+  <div>
+    <h1>Slide Race</h1>
+    <p>A derivative tells you how fast something is going.</p>
+  </div>
+  <div class="score"><b id="score">0</b> points</div>
+</header>
+
+<!-- THE 4 RULES: a box students can open or close. Each rule has a colored badge and one example. -->
+<details class="rules" open>
+  <summary>The 4 rules we use</summary>
+  <div class="rule-grid">
+    <div><span class="chip constant">Constant Rule</span>
+      <p>A plain number becomes <b>0</b>.</p><code>5 → 0</code></div>
+    <div><span class="chip power">Power Rule</span>
+      <p>Bring the exponent down in front, then subtract 1 on the exponent.</p><code>x³ → 3x²</code></div>
+    <div><span class="chip multiple">Constant Multiple Rule</span>
+      <p>Multiply the exponent by the number in front, then subtract 1 on the exponent.</p><code>4x² → 4 × 2x = 8x</code></div>
+    <div><span class="chip sum">Sum / Difference Rule</span>
+      <p>Work on each piece by itself. Keep the + and − signs.</p><code>x² + 3x → 2x + 3</code></div>
+  </div>
+</details>
+
+<!-- TABS: switch between the Race and the Practice sections (app.js shows/hides them) -->
+<nav class="tabs">
+  <button class="tab active" data-tab="race">Race</button>
+  <button class="tab" data-tab="practice">Practice</button>
+</nav>
+
+<main>
+  <!-- ============ RACE TAB ============ -->
+  <section id="tab-race">
+    <div class="card">
+      <p class="how"><b>s</b> is how far a ball has rolled (in meters) after <b>t</b> seconds.</p>
+      <!-- The two distance formulas. app.js fills in the formulas. -->
+      <div class="eqs">
+        <div class="eq a"><span>Ball A</span><b id="eq-a"></b></div>
+        <div class="eq b"><span>Ball B</span><b id="eq-b"></b></div>
+      </div>
+
+      <!-- Step 1: the student predicts which ball will be faster at 3 seconds -->
+      <h2>Which ball will be going <u>faster</u> at 3 seconds?</h2>
+      <div class="row">
+        <button class="pick a" data-pick="A">Ball A</button>
+        <button class="pick b" data-pick="B">Ball B</button>
+      </div>
+
+      <!-- The picture. A straight slide on the left, a spiral slide on the right.
+           app.js draws the spiral (inside #coil) and moves the two balls. -->
+      <svg id="stage" viewBox="0 0 640 300" role="img" aria-label="Ball A on a straight slide and Ball B on a spiral slide">
+        <text class="cap" x="160" y="24">Ball A: straight slide</text>
+        <text class="cap" x="480" y="24">Ball B: spiral slide</text>
+        <line x1="40" y1="60" x2="270" y2="250" class="plank"/>
+        <g class="flag"><line x1="270" y1="250" x2="270" y2="216"/><path d="M270 216 L292 224 L270 232 Z"/></g>
+        <g id="coil"></g>
+        <g id="ball-a"><circle r="14" class="ball-a"/><text y="5">A</text></g>
+        <g id="ball-b"><circle r="14" class="ball-b"/><text y="5">B</text></g>
+      </svg>
+
+      <!-- Live numbers while racing: time, and each ball's speed (the derivative!) -->
+      <div class="hud">
+        <div>time <b id="h-t">0.0</b> s</div>
+        <div class="a">Ball A speed <b id="h-va">0.0</b> m/s</div>
+        <div class="b">Ball B speed <b id="h-vb">0.0</b> m/s</div>
+      </div>
+
+      <div class="row">
+        <button id="start" class="primary">Start race</button>
+        <button id="new-race" class="ghost">New race</button>
+      </div>
+      <p id="msg" class="msg" aria-live="polite">Pick a ball, then press Start race.</p>
+    </div>
+
+    <!-- Step 3: the answer and the worked steps appear here after the race (hidden until then) -->
+    <div id="result" class="card hidden"></div>
+  </section>
+
+  <!-- ============ PRACTICE TAB ============ -->
+  <section id="tab-practice" class="hidden">
+    <div class="card">
+      <h2>Find the derivative</h2>
+      <!-- The formula to differentiate, then 4 answer buttons (made by app.js) -->
+      <div class="fx" id="p-fx"></div>
+      <p class="how">What is <b>f′(x)</b>? Choose one answer.</p>
+      <div id="p-options" class="options"></div>
+      <div id="p-feedback" class="feedback" aria-live="polite"></div>
+      <div id="p-solution"></div>
+      <div class="row"><button id="p-next" class="primary hidden">Next problem</button></div>
+    </div>
+  </section>
+</main>
+
+<!-- math.js = the derivative rules.  app.js = the game. (math.js must load first.) -->
+<script src="js/math.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

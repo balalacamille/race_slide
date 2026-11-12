@@ -1,0 +1,132 @@
+/* =====================================================================
+   css/style.css  -  HOW THE GAME LOOKS (colors, sizes, spacing)
+   ===================================================================== */
+
+/* The colors live here so they can be changed in one place.
+   --a is Ball A's color (orange), --b is Ball B's color (teal). */
+:root {
+  --bg: #eaf3fb;
+  --ink: #14324b;
+  --muted: #5a7389;
+  --card: #ffffff;
+  --line: #c9dbea;
+  --a: #e4572e;
+  --b: #138a8a;
+  --ok: #2e9e5b;
+  --bad: #d64545;
+}
+/* ---------- Page basics ---------- */
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 17px/1.5 "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  max-width: 860px; margin-inline: auto; padding: 16px;
+}
+h1 { margin: 0; font-size: 2rem; }
+h2 { font-size: 1.15rem; margin: 20px 0 10px; }
+p { margin: 0; }
+.hidden { display: none !important; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+
+/* ---------- Title bar and score ---------- */
+.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+.top p { color: var(--muted); }
+.score { background: var(--card); border: 2px solid var(--line); border-radius: 12px; padding: 8px 14px; white-space: nowrap; }
+.score b { font-size: 1.4rem; }
+
+/* ---------- The "4 rules" box and its colored badges (one color per rule) ---------- */
+.rules { background: var(--card); border: 2px solid var(--line); border-radius: 12px; padding: 10px 14px; margin-bottom: 14px; }
+.rules summary { cursor: pointer; font-weight: 700; }
+.rule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-top: 10px; }
+.rule-grid > div { background: #f5f9fd; border-radius: 10px; padding: 10px; }
+.rule-grid p { font-size: .92rem; margin: 6px 0; }
+code { font: inherit; }
+.rule-grid code { font-size: 1.05rem; font-weight: 700; }
+
+.chip { display: inline-block; font-size: .8rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; }
+.chip.constant { background: #d9e2ec; }
+.chip.power    { background: #e3d9f7; }
+.chip.multiple { background: #ffe3b8; }
+.chip.sum      { background: #cdeed9; }
+
+/* ---------- Tabs and white cards ---------- */
+.tabs { display: flex; gap: 6px; }
+.tab { font: inherit; font-weight: 700; padding: 10px 20px; border: 2px solid var(--line); border-bottom: 0;
+  border-radius: 12px 12px 0 0; background: #d7e6f3; color: var(--muted); cursor: pointer; }
+.tab.active { background: var(--card); color: var(--ink); }
+
+.card { background: var(--card); border: 2px solid var(--line); border-radius: 0 12px 12px 12px; padding: 18px; margin-bottom: 14px; }
+#result { border-radius: 12px; }
+.how { color: var(--muted); }
+
+/* ---------- Buttons ---------- */
+button { font: inherit; cursor: pointer; }
+button:focus-visible { outline: 3px solid #f2b705; outline-offset: 2px; }
+button:disabled { opacity: .55; cursor: not-allowed; }
+.primary { background: var(--ink); color: #fff; border: 0; border-radius: 10px; padding: 10px 20px; font-weight: 700; }
+.ghost { background: #fff; color: var(--ink); border: 2px solid var(--line); border-radius: 10px; padding: 10px 20px; font-weight: 700; }
+
+/* ---------- Race tab: formulas, pick buttons, the picture, live numbers ---------- */
+.eqs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.eq { border-radius: 12px; padding: 10px 14px; border: 3px solid; }
+.eq span { display: block; font-size: .85rem; font-weight: 700; }
+.eq b { font-size: 1.5rem; font-weight: 400; }
+.eq.a, .hud .a b { border-color: var(--a); color: var(--a); }
+.eq.b, .hud .b b { border-color: var(--b); color: var(--b); }
+.eq b { color: var(--ink); }
+
+.pick { font-weight: 700; padding: 10px 22px; border-radius: 10px; background: #fff; border: 3px solid; }
+.pick.a { border-color: var(--a); color: var(--a); }
+.pick.b { border-color: var(--b); color: var(--b); }
+.pick.sel.a { background: var(--a); color: #fff; }
+.pick.sel.b { background: var(--b); color: #fff; }
+
+#stage { width: 100%; height: auto; background: #f5f9fd; border-radius: 12px; margin-top: 6px; }
+.plank { stroke: #7d9bb8; stroke-width: 10; stroke-linecap: round; }
+.coil-back { stroke: #aabfd3; stroke-width: 8; stroke-linecap: round; }
+.coil-front { stroke: #7d9bb8; stroke-width: 8; stroke-linecap: round; }
+.pole { stroke: #5a7389; stroke-width: 6; stroke-linecap: round; }
+#stage text.cap { fill: var(--muted); font-size: 13px; }
+.flag line { stroke: var(--ink); stroke-width: 3; }
+.flag path { fill: var(--bad); }
+.ball-a { fill: var(--a); } .ball-b { fill: var(--b); }
+#stage text { fill: #fff; font: 700 14px "Trebuchet MS", sans-serif; text-anchor: middle; }
+
+.hud { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 10px; font-weight: 700; }
+.hud b { font-size: 1.2rem; font-variant-numeric: tabular-nums; border: 0 !important; }
+.msg { min-height: 1.5em; color: var(--muted); }
+.msg.warn { color: var(--bad); font-weight: 700; }
+
+/* ---------- Results and the step-by-step boxes ---------- */
+.big { font-size: 1.5rem; margin: 0 0 6px; }
+.verdict { margin: 8px 0 14px; font-weight: 700; }
+.verdict.ok { color: var(--ok); } .verdict.no { color: var(--bad); }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+.col { border: 3px solid; border-radius: 12px; padding: 12px; }
+.col.a { border-color: var(--a); } .col.b { border-color: var(--b); }
+.col h3 { margin: 0 0 6px; }
+.steps { padding-left: 0; list-style: none; margin: 8px 0; }
+.steps li { background: #f5f9fd; border-radius: 10px; padding: 8px 10px; margin-bottom: 6px; }
+.steps small { display: block; color: var(--muted); margin-top: 4px; }
+.step-result { font-size: 1.1rem; font-weight: 700; }
+.answer { background: var(--ink); color: #fff; border-radius: 10px; padding: 8px 12px; margin-top: 8px; }
+.answer .step-result { font-size: 1.2rem; }
+.note { background: #fff6d6; border-radius: 10px; padding: 10px 12px; margin-top: 12px; }
+
+/* ---------- Practice tab: the formula and the 4 answer buttons ---------- */
+.fx { font-size: 2rem; margin: 8px 0 12px; }
+.options { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.opt { font-size: 1.35rem; font-weight: 700;
+  padding: 14px; background: #fff; border: 3px solid var(--line); border-radius: 12px; color: var(--ink); }
+.opt:hover:not(:disabled) { border-color: var(--ink); }
+.opt.right { border-color: var(--ok); background: #e3f6ea; opacity: 1; }
+.opt.wrong { border-color: var(--bad); background: #fde8e8; opacity: 1; }
+.feedback { margin-top: 12px; font-weight: 700; }
+.feedback.ok { color: var(--ok); } .feedback.no { color: var(--bad); }
+
+/* ---------- Small screens (phones): stack the formula boxes ---------- */
+@media (max-width: 560px) {
+  body { font-size: 16px; padding: 10px; }
+  .eqs { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
